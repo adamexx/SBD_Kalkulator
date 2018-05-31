@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1.1 (Build 111U_SU)" ts="2018-05-31 18:55:48">
+<Class name="ZadanieSBD.Dodawanie">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,60728.393898</TimeChanged>
+<TimeCreated>64793,78087.863648</TimeCreated>
+
+<Property name="operandy">
+<Type>Operandy</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="oblicz">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = ..operandy.operand1 + ..operandy.operand2
+	return wynik
+]]></Implementation>
+</Method>
+
+<Method name="nazwa">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = "Dodawanie"
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.DodawanieD</DataLocation>
+<DefaultData>DodawanieDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.DodawanieD</IdLocation>
+<IndexLocation>^ZadanieSBD.DodawanieI</IndexLocation>
+<StreamLocation>^ZadanieSBD.DodawanieS</StreamLocation>
+<Data name="DodawanieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operandy</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.Dzialanie">
+<Abstract>1</Abstract>
+<TimeChanged>64799,55553.694501</TimeChanged>
+<TimeCreated>64793,78087.669214</TimeCreated>
+
+<Method name="oblicz">
+<Abstract>1</Abstract>
+<ReturnType>%Double</ReturnType>
+</Method>
+
+<Method name="nazwa">
+<Abstract>1</Abstract>
+<ReturnType>%String</ReturnType>
+</Method>
+</Class>
+
+
+<Class name="ZadanieSBD.Odejmowanie">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,48083.3244</TimeChanged>
+<TimeCreated>64793,78088.064154</TimeCreated>
+
+<Property name="operandy">
+<Type>Operandy</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="oblicz">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = ..operandy.operand1 - ..operandy.operand2
+	return wynik
+]]></Implementation>
+</Method>
+
+<Method name="nazwa">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = "Odejmowanie"
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.OdejmowanieD</DataLocation>
+<DefaultData>OdejmowanieDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.OdejmowanieD</IdLocation>
+<IndexLocation>^ZadanieSBD.OdejmowanieI</IndexLocation>
+<StreamLocation>^ZadanieSBD.OdejmowanieS</StreamLocation>
+<Data name="OdejmowanieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operandy</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.Operandy">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,60747.968179</TimeChanged>
+<TimeCreated>64793,78081.188021</TimeCreated>
+
+<Property name="operand1">
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="operand2">
+<Type>%Double</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="RodzajLiczb">
+<Type>ZadanieSBD.RodzajLiczb</Type>
+<Cardinality>one</Cardinality>
+<Inverse>Operandy</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Index name="RodzajLiczbIndex">
+<Properties>RodzajLiczb</Properties>
+</Index>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.OperandyD</DataLocation>
+<DefaultData>OperandyDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.OperandyD</IdLocation>
+<IndexLocation>^ZadanieSBD.OperandyI</IndexLocation>
+<StreamLocation>^ZadanieSBD.OperandyS</StreamLocation>
+<Data name="OperandyDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operand1</Value>
+</Value>
+<Value name="3">
+<Value>operand2</Value>
+</Value>
+<Value name="4">
+<Value>RodzajLiczb</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.RodzajLiczb">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>64799,53138.548694</TimeChanged>
+<TimeCreated>64799,52763.083119</TimeCreated>
+
+<Property name="rodzaj">
+<Type>%String</Type>
+<Required>1</Required>
+</Property>
+
+<Property name="Operandy">
+<Type>ZadanieSBD.Operandy</Type>
+<Cardinality>many</Cardinality>
+<Inverse>RodzajLiczb</Inverse>
+<Relationship>1</Relationship>
+</Property>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.RodzajLiczbD</DataLocation>
+<DefaultData>RodzajLiczbDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.RodzajLiczbD</IdLocation>
+<IndexLocation>^ZadanieSBD.RodzajLiczbI</IndexLocation>
+<StreamLocation>^ZadanieSBD.RodzajLiczbS</StreamLocation>
+<Data name="RodzajLiczbDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>rodzaj</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+</Export>
