@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1.1 (Build 111U_SU)" ts="2018-05-31 18:55:48">
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-64) 2017.1.1 (Build 111U_SU)" ts="2018-05-31 18:43:12">
 <Class name="ZadanieSBD.Dodawanie">
 <Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
 <TimeChanged>64799,60728.393898</TimeChanged>
@@ -59,6 +59,140 @@
 <Abstract>1</Abstract>
 <ReturnType>%String</ReturnType>
 </Method>
+</Class>
+
+
+<Class name="ZadanieSBD.Dzielenie">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,48056.275649</TimeChanged>
+<TimeCreated>64793,83498.716417</TimeCreated>
+
+<Property name="operandy">
+<Type>Operandy</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="oblicz">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = ..operandy.operand1 / ..operandy.operand2
+	return wynik
+]]></Implementation>
+</Method>
+
+<Method name="nazwa">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = "Dzielenie"
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.DzielenieD</DataLocation>
+<DefaultData>DzielenieDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.DzielenieD</IdLocation>
+<IndexLocation>^ZadanieSBD.DzielenieI</IndexLocation>
+<StreamLocation>^ZadanieSBD.DzielenieS</StreamLocation>
+<Data name="DzielenieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operandy</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.ListaDzialan">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor</Super>
+<TimeChanged>64799,55038.347603</TimeChanged>
+<TimeCreated>64799,49250.470702</TimeCreated>
+
+<Property name="listaDzialan">
+<Type>ZadanieSBD.Dzialanie</Type>
+<Collection>list</Collection>
+<Required>1</Required>
+</Property>
+
+<Method name="wyswietlDzialania">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	For i=1:1:..listaDzialan.Count() {
+		Set wynik = wynik + ..listaDzialan.GetAt(i).nazwa() + " "
+	}
+		 
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.ListaDzialanD</DataLocation>
+<DefaultData>ListaDzialanDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.ListaDzialanD</IdLocation>
+<IndexLocation>^ZadanieSBD.ListaDzialanI</IndexLocation>
+<StreamLocation>^ZadanieSBD.ListaDzialanS</StreamLocation>
+<Data name="ListaDzialanDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>listaDzialan</Value>
+</Value>
+<Value name="3">
+<Value>tmp</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.Mnozenie">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,48068.784903</TimeChanged>
+<TimeCreated>64793,78088.257792</TimeCreated>
+
+<Property name="operandy">
+<Type>Operandy</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="oblicz">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = ..operandy.operand1 * ..operandy.operand2
+	return wynik
+]]></Implementation>
+</Method>
+
+<Method name="nazwa">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = "Mnozenie"
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.MnozenieD</DataLocation>
+<DefaultData>MnozenieDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.MnozenieD</IdLocation>
+<IndexLocation>^ZadanieSBD.MnozenieI</IndexLocation>
+<StreamLocation>^ZadanieSBD.MnozenieS</StreamLocation>
+<Data name="MnozenieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operandy</Value>
+</Value>
+</Data>
+</Storage>
 </Class>
 
 
@@ -152,6 +286,57 @@
 </Value>
 <Value name="4">
 <Value>RodzajLiczb</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="ZadanieSBD.Potegowanie">
+<Super>%Persistent,%Populate,%XML.Adaptor,%ZEN.DataModel.Adaptor,ZadanieSBD.Dzialanie</Super>
+<TimeChanged>64799,48096.737174</TimeChanged>
+<TimeCreated>64793,78088.448151</TimeCreated>
+
+<Property name="operandy">
+<Type>Operandy</Type>
+<Required>1</Required>
+</Property>
+
+<Method name="oblicz">
+<ReturnType>%Double</ReturnType>
+<Implementation><![CDATA[
+	Set x = 1
+	Set wynik = 1.0
+	while x <= ..operandy.operand2
+	{
+		Set wynik = wynik * ..operandy.operand1
+		Set x = x + 1
+	}
+	return wynik
+]]></Implementation>
+</Method>
+
+<Method name="nazwa">
+<ReturnType>%String</ReturnType>
+<Implementation><![CDATA[
+	Set wynik = "Potegowanie"
+	return wynik
+]]></Implementation>
+</Method>
+
+<Storage name="Default">
+<Type>%Library.CacheStorage</Type>
+<DataLocation>^ZadanieSBD.PotegowanieD</DataLocation>
+<DefaultData>PotegowanieDefaultData</DefaultData>
+<IdLocation>^ZadanieSBD.PotegowanieD</IdLocation>
+<IndexLocation>^ZadanieSBD.PotegowanieI</IndexLocation>
+<StreamLocation>^ZadanieSBD.PotegowanieS</StreamLocation>
+<Data name="PotegowanieDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>operandy</Value>
 </Value>
 </Data>
 </Storage>
